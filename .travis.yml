@@ -1,0 +1,17 @@
+sudo: required
+language: go
+
+script:
+  - GOOS=linux GOARCH=amd64 go build -o susi-mongodb-${TRAVIS_BRANCH}.amd64
+  - GOOS=linux GOARCH=arm go build -o susi-mongodb-${TRAVIS_BRANCH}.armhf
+
+deploy:
+  provider: releases
+  api_key:
+    secure: jCnPSzRL4HZCYNj591cgV9dVA6a0sDxOWGpTRVeN311mhhvfmdVcIYs6kRXequMr33T7NWZ1mqfl39eri+tdKnCP3MHXxXZ6d6KJCdI2iMRD4JO++qomb/nucJcZSQBnW/FUvlH1n9h9GTCajiQOMaG/kTOKKjAxC4QOTSkxTlWFqYlHQk8xa15jKEyvTl1GqIKKwIv3MS39/cBA/EyU7s+lgqU9jMZygrULv/6boZgqVrR3TOC/asvjo2p7Pnbly1Maxey1ZyQPGHO0lCbMIzQTnzttsCq7CxoT22jrDeh/3iG8sZdTA2ecpdRy8cyWy1vjv46aGcFQLI4sH9eqKz1jPD/oiPjIEtLH0FUiSEjhqeiNhNc1jcH0qJZfyoSLgYHNuVNdgvCSbJBHdSv7kpdRESqTjrM8fJq7kxKg6thm/KSiXh2whWQcMPhSX1zqNHIU2mYttdbZa1vsTtZi1ZUB94wbQTFQ9odOhBMwSyJf8ZOjtj+k51HmotEdZNqW4xDMI2/Zi+CMQFoYzxETKYar96m5/CztMsP0svjDWdJhpKxwIMOBVtNlFV/0t+6d/nNIHfFIst2x2ewrN/92fqg+g54o++iv22BxG0jThyArj4+Y8ThIAUeUo6ZmXJHuQORbVl5arXwUVZhexgFSS+0c2Rhnjk4bzpxqEJKOxTU=
+  file:
+    - susi-mongodb-${TRAVIS_BRANCH}.amd64
+    - susi-mongodb-${TRAVIS_BRANCH}.armhf
+  skip_cleanup: true
+  on:
+    tags: true
